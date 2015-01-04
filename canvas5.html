@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf8">
+<head>
+  <title>hello</title>
+
+  <style>
+    body {
+        margin: 40px;
+        background: #666;
+        border: #000 1px solid;
+    }
+    #my_canvas {
+        background: #FFF;
+        border: #000 1px solid;
+    }
+  </style>
+  
+  <script type="text/javascript">
+    function initCanvas() {
+      var ctx = document.getElementById('my_canvas').getContext('2d');
+      var cW = ctx.canvas.width;
+      var cH = ctx.canvas.height;
+      
+      var y = 0, x = 0;
+      function animate() {
+        ctx.save();
+        ctx.clearRect(0,0,cW,cH);
+        
+        ctx.rotate(-.3);
+        ctx.fillRect(0,y,50,50);
+        
+        
+        ctx.fillStyle = 'blue';
+        ctx.rotate(.8);
+        ctx.fillRect(x,0,50,50);
+        y++; x++;
+        
+        
+        ctx.restore();
+      }
+      var animateInterval = setInterval(animate,30);
+      ctx.canvas.addEventListener('click', function(event){
+        clearInterval(animateInterval);
+        });
+    }
+    
+    window.addEventListener('load', function(event) {
+      initCanvas();
+      });
+
+  </script>
+  
+</head>
+
+
+<body>
+    
+<canvas id="my_canvas" width="500" height="350"></canvas>
+<p><h1>hello</h1></p>                                                         
+</body>
+
+</html>
+
+

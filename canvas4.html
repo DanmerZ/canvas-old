@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf8">
+<head>
+  <title>hello</title>
+
+  <style>
+    body {
+        margin: 40px;
+        background: #666;
+        border: #000 1px solid;
+    }
+    #my_canvas {
+        background: #FFF;
+        border: #000 1px solid;
+    }
+  </style>
+  <script type="text/javascript">
+
+  
+    function draw() {
+      var ctx = document.getElementById('my_canvas').getContext('2d');
+      ctx.fillStyle = 'magenta';
+      /*ctx.fillRect(20,20,50,50);
+      //ctx.globalAlpha = .5;     
+      ctx.fillStyle = 'blue';
+      ctx.fillRect(40,40,50,50);*/
+      var rectW = 100;
+      var rectH = 100;
+      var rectX = ctx.canvas.width /2 - rectW *.5;
+      var rectY = ctx.canvas.height/2 - rectH*.5;
+
+      ctx.fillRect(rectX,rectY,rectW,rectH);
+      
+    }   
+    window.onload = draw;
+  </script>
+  
+</head>
+
+
+<body>
+    
+<canvas id="my_canvas" width="500" height="350"></canvas>
+<p><h1>hello</h1></p>                                                         
+</body>
+
+</html>
+
+

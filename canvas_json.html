@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf8">
+<head>
+  <title>hello</title>
+
+  <style>
+    body {        
+        background: #333;        
+    }
+    #my_canvas {
+        background: #FFF;
+        border: #999 1px solid;        
+    }
+    #canvas_container {
+      width: 1000px;
+      margin: 20px auto;      
+    }
+  </style>
+  
+  <script type="text/javascript">
+    var bg = new Image();
+    bg.src = "stars.png";
+    
+      function initCanvas() {
+      var ctx = document.getElementById('my_canvas').getContext('2d');
+      var cW = ctx.canvas.width;
+      var cH = ctx.canvas.height;
+      
+      ctx.canvas.addEventListener('mousedown',function(event) {
+        var mX = event.clientX - ctx.canvas.offsetLeft;
+        var mY = event.clientY - ctx.canvas.offsetTop;
+        
+        for (var i=0; i < buildings.length; i++) {
+          var b = buildings[i];
+          if (mX >= b.x && mX < b.x+b.w && mY >= b.y && mY < b.y+b.h) {
+            document.getElementById('status').innerHTML = "You touched "+b.id;
+          }
+        }
+      });
+        
+      
+      var buildings = [ {"id":"house","x":100,"y":50,"w":50,"h":50,"bg":"magenta"},
+                        {"id":"grocery","x":200,"y":50,"w":50,"h":50,"bg":"green"},
+                        {"id":"post_office","x":300,"y":50,"w":50,"h":50,"bg":"orange"}
+      ];
+            
+      for(var i = 0; i < buildings.length; i++) {
+        var b = buildings[i];
+        ctx.fillStyle = b.bg;
+        ctx.fillRect(b.x,b.y,b.w,b.h);       
+        
+      }
+      
+    }
+    
+    window.addEventListener('load', function(event) {
+      initCanvas();
+      });
+  </script>
+  
+</head>
+
+
+<body>
+    <div id="canvas_container"><canvas id="my_canvas" width="1000" height="500"></canvas></div>
+    <h2 id="status"></h2>
+                                                      
+</body>
+
+</html>
+
+

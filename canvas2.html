@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf8">
+<head>
+  <title>hello</title>
+
+  <style>
+    body {
+        margin: 40px;
+        background: #666;
+        border: #000 1px solid;
+    }
+    #my_canvas {
+        background: #FFF;
+        border: #000 1px solid;
+    }
+  </style>
+  <script type="text/javascript">
+
+    var my_pic = new Image();
+    my_pic.src = "a.jpeg";
+    
+    function draw() {
+      var ctx = document.getElementById('my_canvas').getContext('2d');
+      ctx.drawImage(my_pic,20,20,100,100);
+      
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#FC0";
+      ctx.font = "italic bold 56px Arial, sans-serif";
+      ctx.fillText("Text on canvas",100,300);
+      ctx.strokeText("Text on canvas", 100, 350);
+      
+      
+      ctx.fillStyle = 'orange';
+      ctx.shadowColor = "rgba(200,0,0,0.2)";
+      ctx.shadowOffsetX = -5;
+      ctx.shadowOffsetY = 5;
+      ctx.shadowBlur = 3;
+      ctx.fillRect(200,50,50,50);
+    }   
+    window.onload = draw;
+  </script>
+  
+</head>
+
+
+<body>
+    
+<canvas id="my_canvas" width="500" height="350"></canvas>
+<p><h1>hello</h1></p>                                                         
+</body>
+
+</html>
+
+

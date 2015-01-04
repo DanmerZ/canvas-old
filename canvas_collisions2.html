@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf8">
+<head>
+  <title>hello</title>
+
+  <style>
+    body {        
+        background: #333;        
+    }
+    #my_canvas {
+        background: #FFF;
+        border: #999 1px solid;        
+    }
+    #canvas_container {
+      width: 1000px;
+      margin: 20px auto;      
+    }    
+  </style>
+  
+  <script type="text/javascript">
+      
+      function initCanvas() {
+      var ctx = document.getElementById('my_canvas').getContext('2d');
+      var cW = ctx.canvas.width;
+      var cH = ctx.canvas.height;
+      
+      var enemies = [ {"id":"enemy1","x":100,"y":-20,"w":40,"h":20},
+                      {"id":"enemy2","x":225,"y":-20,"w":40,"h":20},
+                      {"id":"enemy3","x":350,"y":-20,"w":40,"h":20},
+                      {"id":"enemy4","x":100,"y":-70,"w":40,"h":20},
+                      {"id":"enemy5","x":225,"y":-70,"w":40,"h":20},
+                      {"id":"enemy6","x":350,"y":-70,"w":40,"h":20}
+      ];
+      
+      function Launcher() {
+        this.y = 280, this.x=cW*.5-25, this.w=50,
+        this.h=50, this.dir, this.bg="orange",this.missiles=[];
+        this.render = function() {
+          if (this.dir == 'left') {
+            this.x -= 5;
+          } else if (this.dir == 'right') {
+            this.x += 5;
+          }
+        }
+        ctx.fillStyle = this.bg;
+        ctx.fillRect(this.x,this.y,this.w,this.h);
+        for (var i=0; i<this.missiles.length; i++) {
+          var m = this.missiles[i];
+          ctx.fillStyle = m.bg;
+          ctx.fillRect(m.x,m.y,m.w,m.h);
+          this.hitDetect(this.missiles[i],i);
+          if (m.y <= 0) {
+            this.missiles.splice(i,1);
+          }
+        }
+        if (enemies.length == 0) {
+          clearInterval( animateInterval );
+          ctx.fillStyle = '#FC0';
+          ctx.font = 'italic bold 36px Arial, sans-serif';
+          ctx.fillText('Level Complete', cW*.5-130,50,300);
+        }
+      }
+      
+      function renderEnemies() {
+        for (var i = 0; i < enemies.length; i++) {
+          ctx.fillStyle = "blue";
+          ctx.fillRect(enemies[i].x,enemies[i].y+=5,enemies[i].w,enemies[i].h);
+        }
+      }
+      
+      function animate() {
+        ctx.save();
+        ctx.clearRect(0,0,cW,cH);
+        
+        renderEnemies();
+        
+        ctx.restore();
+      }
+      var animateInterval = setInterval(animate,30);
+      
+      
+    }
+    
+    window.addEventListener('load', function(event) {
+      initCanvas();
+      });
+  </script>
+  
+</head>
+
+
+<body>    
+    <canvas id="my_canvas" width="1000" height="500"></canvas>
+    <div>
+      <button id="left_btn">Move Left</button>
+      <button id="right_btn">Move Right</button>
+      <button id="fire_btn">Fire Missile</button>
+    </div>
+    <h3 id="status"></h3>
+                                                      
+</body>
+
+</html>
+
+

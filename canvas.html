@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf8">
+<head>
+  <title>hello</title>
+
+  <style>
+    body {
+        margin: 40px;
+        background: #666;
+        border: #000 1px solid;
+    }
+    #my_canvas {
+        background: #FFF;
+        border: #000 1px solid;
+    }
+  </style>
+  <script type="text/javascript">
+    //var leather = new Image();
+    //leather.src = "leather.jpg"
+    
+    function draw() {
+        var ctx = document.getElementById('my_canvas').getContext('2d');
+        //alert(ctx.canvas.id + " | " + ctx.canvas.width + " | " + ctx.canvas.height);
+        //ctx.fillStyle = color || hex || rgba || gradient || patern;
+        //var g1 = ctx.createLinearGradient(100,100,0,200);
+        //g1.addColorStop(0,"red");
+        
+        //g1.addColorStop(1,"black");
+        //ctx.fillStyle = g1;
+        //ctx.strokeStyle = "white";
+        //ctx.lineWidth = 10;
+        //ctx.fillRect(100,100,200,200);
+        //ctx.strokeRect(100,100,200,200);
+        
+        //var g2 = ctx.createRadialGradient(200, 150,10,200,150,70);
+        //g2.addColorStop(0,"magenta");
+       // g2.addColorStop(1,"black");
+       // ctx.fillStyle = g2;
+       // ctx.fillRect(0,0,400,300);
+        
+        ctx.lineWidth = 1;
+        //ctx.lineCap = "butt";
+        //ctx.lineJoin = "round";
+        //ctx.miterLimit = 1;
+        //ctx.setLineDash([20,10,30]);      
+        ctx.strokeStyle = "black";
+        
+        ctx.lineDashOffset = 0;
+        
+        var w = ctx.canvas.width;
+        var h = ctx.canvas.height;
+        console.log(w,h);
+        for (var i = 0; i < w; i += w/10) {
+            ctx.beginPath();
+            ctx.moveTo(i,0);
+            ctx.lineTo(i,w);
+            ctx.stroke();            
+        }
+        for (var i = 0; i < h; i += h/10) {
+            ctx.beginPath();
+            ctx.moveTo(0,i);
+            ctx.lineTo(h,i);
+            ctx.stroke();
+        }
+        //console.log(ctx.isPointInPath(70,1));
+        
+        /*ctx.strokeStyle = "red";
+        ctx.lineWidth = 3;
+        ctx.rect(70,80,140,160);
+        ctx.clip();
+        ctx.rect(0,0,90,100);
+        ctx.stroke();*/
+        
+        
+        ctx.arc(150, 150, 100, 0, Math.PI*2, true);
+        ctx.stroke();
+        
+        
+    }   
+    window.onload = draw;
+  </script>
+  
+</head>
+<body>
+    
+<canvas id="my_canvas" width="700" height="800">
+    
+</canvas>
+    
+
+
+
+</body>
+
+</html>
+
+

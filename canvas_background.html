@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf8">
+<head>
+  <title>hello</title>
+
+  <style>
+    body {        
+        background: #333;        
+    }
+    #my_canvas {
+        background: #FFF;
+        border: #999 1px solid;        
+    }
+    #canvas_container {
+      width: 1000px;
+      margin: 20px auto;      
+    }
+  </style>
+  
+  <script type="text/javascript">
+    var bg = new Image();
+    bg.src = "stars.png";
+    
+      function initCanvas() {
+      var ctx = document.getElementById('my_canvas').getContext('2d');
+      var cW = ctx.canvas.width;
+      var cH = ctx.canvas.height;   
+            
+      function Background() {
+        this.x = 0, this.y = 0;
+        this.w = bg.width, this.h = bg.height;
+        this.render = function() {
+          ctx.drawImage(bg,this.x-=3,0);
+          if (this.x <= -499) {
+            this.x = 0;
+          }
+        }
+      }
+      
+      var dist = 4;
+      
+      function Player() {
+        this.x = 0, this.y = 0;
+        this.w = 50, this.h = 50;
+        this.render = function() {
+          ctx.fillStyle = "orange";
+          ctx.fillRect(this.x,this.y,this.w,this.h);          
+        }
+      }
+      
+      var background = new Background();
+      var player = new Player();
+      player.x = 100;
+      player.y = 225;
+      
+      function animate() {
+        ctx.save();
+        ctx.clearRect(0,0,cW,cH);
+        
+        background.render();
+        
+        player.render();
+        
+        ctx.restore();
+      }
+      var animateInterval = setInterval(animate,30);
+      
+      document.addEventListener('keydown', function(event) {
+        var key_press = String.fromCharCode(event.keyCode);
+        if (key_press == "W") {
+          player.y -=dist;
+        } else if (key_press == "S") {
+          player.y += dist;
+        } else if (key_press == "A") {
+          player.x -= dist;
+        } else if (key_press == "D") {
+          player.x += dist;
+        }       
+        
+      });
+    }
+    
+    window.addEventListener('load', function(event) {
+      initCanvas();
+      });
+  </script>
+  
+</head>
+
+
+<body>
+    <div id="canvas_container"><canvas id="my_canvas" width="1000" height="500"></canvas></div>
+
+                                                      
+</body>
+
+</html>
+
+

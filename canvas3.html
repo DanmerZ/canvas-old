@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf8">
+<head>
+  <title>hello</title>
+
+  <style>
+    body {
+        margin: 40px;
+        background: #666;
+        border: #000 1px solid;
+    }
+    #my_canvas {
+        background: #FFF;
+        border: #000 1px solid;
+    }
+  </style>
+  <script type="text/javascript">
+
+  
+    function draw() {
+      var ctx = document.getElementById('my_canvas').getContext('2d');
+      ctx.fillStyle = 'magenta';
+      ctx.fillRect(20,20,100,100);
+      //ctx.rotate(.15);
+      //ctx.setTransform(1,.1,0,1,0,0);
+      ctx.fillStyle = 'blue';
+      ctx.fillRect(40,40,100,100);
+      
+      var src = ctx.getImageData(20,20,50,50);
+      var copy = ctx.createImageData(src);
+      copy.data.set(src.data);
+      ctx.putImageData[copy,250,20]
+    }   
+    window.onload = draw;
+  </script>
+  
+</head>
+
+
+<body>
+    
+<canvas id="my_canvas" width="500" height="350"></canvas>
+<p><h1>hello</h1></p>                                                         
+</body>
+
+</html>
+
+

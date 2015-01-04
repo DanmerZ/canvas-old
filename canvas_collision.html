@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf8">
+<head>
+  <title>hello</title>
+
+  <style>
+    body {        
+        background: #333;        
+    }
+    #my_canvas {
+        background: #FFF;
+        border: #999 1px solid;        
+    }
+    #canvas_container {
+      width: 1000px;
+      margin: 20px auto;      
+    }    
+  </style>
+  
+  <script type="text/javascript">
+      
+      function initCanvas() {
+      var ctx = document.getElementById('my_canvas').getContext('2d');
+      var cW = ctx.canvas.width;
+      var cH = ctx.canvas.height;
+      var dist = 10;
+      
+      function Rect(xR,yR,wR,hR,clr) {
+        this.xR = xR, this.yR = yR, this.wR = wR, this.hR = hR;
+        this.clr = clr;
+        this.draw = function() {
+          ctx.fillStyle = this.clr;
+          ctx.fillRect(this.xR,this.yR,this.wR,this.hR);
+        }
+      }
+      
+      var player = new Rect(500,400,100,100,"black");
+      
+      var fires = [];
+      function fire() {
+        fires.push(new Rect(player.xR+player.wR*.5,player.yR-50,10,10));       
+      }
+      
+      var targets = [];
+      
+      for (var i = 0; i < 5; i++) {
+        targets.push(new Rect((i+1)*cW/6,0,100,100,"red"));        
+      }
+      
+      function animate() {
+        ctx.save();
+        ctx.clearRect(0,0,cW,cH);      
+        
+        
+        player.draw();
+        
+        for (var i = 0; i < fires.length;i++) {
+          if (fires!=[]) {
+            fires[i].draw();
+            fires[i].yR -= 10;
+            if (fires[i].yR <= 0) {
+              fires.splice(i,1);
+            }
+          }          
+        }
+        
+        for (var i = 0; i < targets.length;i++ ) {
+          if (targets != []) {
+            targets[i].draw();
+            targets[i].yR += 1;
+          }
+        }
+        
+        if (fires != [] && targets != []) {
+          for (var i = 0; i < fires.length; i++) {
+            var xf = fires[i].xR;
+            var yf = fires[i].yR;
+            for (var j = 0; i < targets.length; j++) {              
+              var xt = targets[j].xR;
+              var yt = targets[j].yR;
+              var wt = targets[j].wR;
+              var ht = targets[j].hR;
+              if (xf >= xt && xf < xt+wt && yf > yt && yf <= yt+ht) {                
+                fires[i].clr = "white";
+                targets[j].wR = 0;
+                targets[j].hR = 0;
+                targets.splice(j,1);
+                fires.splice(i,1);                
+              }
+              if (targets[j].yR >= cH) {
+                ctx.fillText("You Lose",500,250);
+              }
+              document.getElementById("txt").innerHTML = targets.length + " | " + fires.length;
+            } 
+          }
+        }
+        
+        if (targets == []) {
+          ctx.fillText("You won", 500,250);
+        }
+        
+        
+        ctx.restore();
+      }
+      
+      window.addEventListener("keydown",function(event) {
+        var key_press = String.fromCharCode(event.keyCode);
+        if (key_press=="A") {          
+          player.xR -= dist;
+        } else if (key_press=="D") {
+          player.xR += dist;
+        } else if (key_press==" ") {         
+          fire();
+        }
+      });
+      
+      document.getElementById('left_btn').onclick = function() {
+        player.xR -= dist;
+      };
+      document.getElementById('right_btn').onclick = function() {
+        player.xR += dist;
+      };
+      document.getElementById('fire_btn').onclick = function() {
+        fire();
+      };
+      
+      var animateInterval = setInterval(animate,30);
+    }
+    
+    window.addEventListener('load', function(event) {
+      initCanvas();
+      });
+  </script>
+  
+</head>
+
+
+<body>
+    <p id="txt"></p>
+    <canvas id="my_canvas" width="1000" height="500"></canvas>
+    <div>
+      <button id="left_btn">Move Left</button>
+      <button id="right_btn">Move Right</button>
+      <button id="fire_btn">Fire Missile</button>
+    </div>
+    <h3 id="status"></h3>
+                                                      
+</body>
+
+</html>
+
+
